@@ -144,7 +144,7 @@ class _CountdownContentState extends State<CountdownContent> {
             TextButton(
               child: Text(
                 "❤",
-                style: TextStyle(color: MyColors.textPrimary, fontSize: 50.sp),
+                style: TextStyle(color: MyColors.textPrimary, fontSize: 24.sp),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -166,23 +166,23 @@ class _CountdownContentState extends State<CountdownContent> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         buildTimeRow(days.toString().padLeft(2, '0'), "Days"),
-        SizedBox(height: 20.h),
+        SizedBox(height: 4.h),
         buildTimeRow(hours.toString().padLeft(2, '0'), "Hours"),
-        SizedBox(height: 20.h),
+        SizedBox(height: 4.h),
         buildTimeRow(minutes.toString().padLeft(2, '0'), "Minutes"),
-        SizedBox(height: 20.h),
+        SizedBox(height: 4.h),
         buildTimeRow(seconds.toString().padLeft(2, '0'), "Seconds"),
-        SizedBox(height: 30.h),
+        SizedBox(height: 10.h),
         // New text under the seconds counter using Lymbo font and dynamic year calculation
         Text(
           'Before ${getYearsSinceBirth()} Years\nThe World was Darker',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontFamily: 'Lymbo',
-            fontSize: 80.sp,
+            fontSize: 32.sp,
             fontWeight: FontWeight.bold,
-            // i need the color to be unique and eye catching and match the theme
-            color: Color(0xEFF6C5BD),
+            color: MyColors.textSecondary,
+            height: 1,
           ),
         ),
       ],
@@ -196,7 +196,7 @@ class _CountdownContentState extends State<CountdownContent> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [for (int i = 0; i < time.length; i++) buildDigit(time[i])],
         ),
-        SizedBox(height: 12.h),
+        SizedBox(height: 1.h),
         buildLabel(label),
       ],
     );
@@ -210,23 +210,23 @@ class _CountdownContentState extends State<CountdownContent> {
       },
       child: Container(
         key: ValueKey<String>(digit),
-        margin: EdgeInsets.symmetric(horizontal: 8.w),
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
+        margin: EdgeInsets.symmetric(horizontal: 2.w),
+        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
         decoration: BoxDecoration(
-          color: MyColors.textPrimary.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(12.r),
+          color: MyColors.textPrimary.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(6.r),
           border: Border.all(
-            color: MyColors.textPrimary.withOpacity(0.2),
-            width: 2,
+            color: MyColors.textSecondary.withOpacity(0.1),
+            width: 1,
           ),
         ),
         child: Text(
           digit,
           style: TextStyle(
-            fontSize: 160.sp,
+            fontSize: 54.sp,
             fontWeight: FontWeight.bold,
-            color: MyColors.textPrimary,
-            height: 1.0,
+            color: MyColors.textSecondary,
+            height: 1.07,
           ),
         ),
       ),
@@ -237,10 +237,10 @@ class _CountdownContentState extends State<CountdownContent> {
     return Text(
       label,
       style: TextStyle(
-        color: MyColors.textSecondary,
-        fontSize: 30.sp,
-        fontWeight: FontWeight.w600,
-        letterSpacing: 1.2,
+        color: MyColors.textPrimary,
+        fontSize: 11.sp,
+        fontWeight: FontWeight.w800,
+        letterSpacing: 0.4,
       ),
     );
   }
@@ -255,30 +255,20 @@ class _CountdownContentState extends State<CountdownContent> {
     return SingleChildScrollView(
       child: Center(
         child: Padding(
-          padding: EdgeInsets.only(top: 40.h),
+          padding: EdgeInsets.only(top: 2.h),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Icon(Icons.cake, size: 140.spMax, color: MyColors.textPrimary),
-              SizedBox(height: 4.h),
-              Text(
-                'Countdown to',
-                style: TextStyle(
-                  fontSize: 28.sp,
-                  fontWeight: FontWeight.w500,
-                  color: MyColors.textSecondary,
-                ),
-              ),
-              SizedBox(height: 8.h),
+              Icon(Icons.cake, size: 140.sp, color: MyColors.textPrimary),
               Text(
                 'November 25th',
                 style: TextStyle(
-                  fontSize: 36.sp,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.bold,
                   color: MyColors.textPrimary,
                 ),
               ),
-              SizedBox(height: 24.h),
+              SizedBox(height: 8.h),
               ValueListenableBuilder<Duration>(
                 valueListenable: durationNotifier,
                 builder: (context, duration, child) {

@@ -12,7 +12,7 @@ class BottomNavigationWidget extends StatelessWidget {
   });
 
   Widget _navIcon(IconData icon, bool selected) {
-    final double size = selected ? 25 : 23;
+    final double size = selected ? 28 : 25;
     if (selected) {
       return Column(
         mainAxisSize: MainAxisSize.min,

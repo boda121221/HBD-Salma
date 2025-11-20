@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 class MyColors {
   static const Color primaryColor = Color(0xFFFED6D0);
+  static const Color primaryColorBold = Color(0xFFFBB7AC);
   static const Color myBlue = Color(0xFFD0E1FE);
   static const Color myGreen = Color(0xFFD0FEED);
   static const Color myYellow = Color(0xFFFFF3C2);
   static const Color myPurple = Color(0xFFE3D0FE);
   static const Color myWhite = Color(0xFFFFFFFF);
-  static const Color myBlack = Color(0xFF000000);
+  static const Color myBlack = Color(0xFF555555);
 
   // // New palette to match the splash spirit
   // static const Color scaffoldGradientStart = primaryColor; // warm pink start

@@ -94,7 +94,7 @@ class _SplashScreenState extends State<SplashScreen>
             Center(
               child: DefaultTextStyle(
                 style: TextStyle(
-                  fontSize: 125.sp,
+                  fontSize: 46.sp,
                   color: Colors.white,
                   fontFamily: 'Lymbo',
                   fontWeight: FontWeight.bold,
