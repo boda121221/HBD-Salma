@@ -67,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen>
           children: [
             // 🌈 Animated pink background with hearts (reduced opacity)
             Opacity(
-              opacity: 0.21, // reduced opacity for subtle background
+              opacity: 1, // reduced opacity for subtle background
               child: Lottie.asset(
                 'assets/animations/hearts_feedback.json',
                 fit: BoxFit.fitWidth,
@@ -83,7 +83,7 @@ class _SplashScreenState extends State<SplashScreen>
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [MyColors.primaryColor, Color(0xFFEFDFDC)],
+                  colors: [MyColors.primaryColor, Color(0xE4EFDFDC)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),

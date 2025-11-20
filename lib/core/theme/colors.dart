@@ -29,4 +29,5 @@ class MyColors {
   static const Color backgroundDark = Color(0xFF2C1A17);
   // Text colors
   static const Color textPrimary = Color(0xFFFFDDD8);
+  static const Color textSecondary = Color(0xFF666666);
 }
