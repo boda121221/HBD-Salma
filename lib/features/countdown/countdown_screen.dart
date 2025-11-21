@@ -10,6 +10,7 @@ import 'package:hbd_salma/core/theme/colors.dart';
 import 'package:hbd_salma/features/day_events/day_events_screen.dart';
 import 'package:hbd_salma/features/games/games_screen.dart';
 import 'package:hbd_salma/features/music/music_screen.dart';
+import 'package:hbd_salma/features/music/mini_player.dart';
 
 import '../../core/widgets/bottom_navigation.dart';
 
@@ -59,9 +60,21 @@ class _CountdownScreenState extends State<CountdownScreen> {
           child: SafeArea(child: _pages[_selectedIndex]),
         ),
       ),
-      bottomNavigationBar: BottomNavigationWidget(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+      bottomNavigationBar: SafeArea(
+        top: false,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Mini player sits above the bottom navigation when visible
+            const MiniPlayer(),
+
+            // The actual bottom navigation bar
+            BottomNavigationWidget(
+              currentIndex: _selectedIndex,
+              onTap: _onItemTapped,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -213,10 +226,10 @@ class _CountdownContentState extends State<CountdownContent> {
         margin: EdgeInsets.symmetric(horizontal: 2.w),
         padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 6.h),
         decoration: BoxDecoration(
-          color: MyColors.textPrimary.withOpacity(0.2),
+          color: MyColors.textPrimary.withAlpha((0.2 * 255).round()),
           borderRadius: BorderRadius.circular(6.r),
           border: Border.all(
-            color: MyColors.textSecondary.withOpacity(0.1),
+            color: MyColors.textSecondary.withAlpha((0.1 * 255).round()),
             width: 1,
           ),
         ),

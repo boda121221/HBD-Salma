@@ -41,6 +41,7 @@ dependencies:
   provider: ^6.1.1
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1  # Check for latest version
   flutter_test:
     sdk: flutter
 
@@ -50,6 +51,15 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
+# This is the configuration for the package.
+# It should be at the root level (no indentation).
+# The key should match the package name `flutter_launcher_icons`.
+flutter_launcher_icons:
+  android: true
+  image_path: "assets/images/launcher.jpg"
+  android_background_color: "#FFFED6D0"
+
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
