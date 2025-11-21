@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'music_controller.dart';
 import 'music_model.dart';
+import 'player_bottom_sheet.dart';
 
 class MusicCard extends StatelessWidget {
   final MusicModel song;
@@ -19,7 +20,45 @@ class MusicCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        controller.playSong(index);
+        debugPrint(
+          'MusicCard tapped index=$index sheetOpen=${controller.isSheetOpen}',
+        );
+
+        // If sheet isn't open, open it immediately so it shows on first tap
+        if (!controller.isSheetOpen) {
+          controller.markSheetOpen();
+
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            builder: (sheetContext) {
+              debugPrint(
+                'showModalBottomSheet.builder called for index=$index',
+              );
+              // Provide the same controller instance to the sheet and pass onBuilt to start playback
+              return ChangeNotifierProvider.value(
+                value: controller,
+                child: PlayerBottomSheet(
+                  onBuilt: () {
+                    debugPrint(
+                      'PlayerBottomSheet built callback for index=$index',
+                    );
+                    controller.playSong(index);
+                  },
+                ),
+              );
+            },
+          ).whenComplete(() {
+            // Mark sheet closed when dismissed
+            debugPrint('Modal bottom sheet dismissed for index=$index');
+            controller.markSheetClosed();
+          });
+        } else {
+          // If sheet already open, just switch the track
+          debugPrint('Sheet already open - switching to index=$index');
+          controller.playSong(index);
+        }
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.w),

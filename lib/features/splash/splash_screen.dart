@@ -67,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen>
           children: [
             // 🌈 Animated pink background with hearts (reduced opacity)
             Opacity(
-              opacity: 1, // reduced opacity for subtle background
+              opacity: 0.9, // reduced opacity for subtle background
               child: Lottie.asset(
                 'assets/animations/hearts_feedback.json',
                 fit: BoxFit.fitWidth,
@@ -83,7 +83,7 @@ class _SplashScreenState extends State<SplashScreen>
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [MyColors.primaryColor, Color(0xE4EFDFDC)],
+                  colors: [MyColors.primaryColor, Color(0xE4F3E6E4)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -109,6 +109,7 @@ class _SplashScreenState extends State<SplashScreen>
                 child: AnimatedTextKit(
                   isRepeatingAnimation: false,
                   animatedTexts: [
+                    // ineed salma to be under happy birthday in the center
                     TyperAnimatedText(
                       'Happy Birthday Salma',
                       speed: const Duration(milliseconds: 145),

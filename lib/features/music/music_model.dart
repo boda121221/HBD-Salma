@@ -70,7 +70,7 @@ class MusicModel {
       ),
       MusicModel(
         id: '6',
-        title: 'Just The Way You Are',
+        title: 'The Way You Are',
         artist: 'Bruno Mars',
         imageUrl:
             'https://raw.githubusercontent.com/bodasayed1/HBD-music/refs/heads/main/images/just_the_way_you_are.jpg',

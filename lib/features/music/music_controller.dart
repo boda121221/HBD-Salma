@@ -15,12 +15,20 @@ class MusicController extends ChangeNotifier {
   // Is player visible
   bool _isPlayerVisible = false;
 
+  // Is modal sheet open (prevents multiple openings)
+  bool _isSheetOpen = false;
+
+  // Is audio currently loading
+  bool _isLoadingAudio = false;
+
   // Getters
   AudioPlayer get audioPlayer => _audioPlayer;
   List<MusicModel> get songs => _songs;
   int get currentIndex => _currentIndex;
   MusicModel get currentSong => _songs[_currentIndex];
   bool get isPlayerVisible => _isPlayerVisible;
+  bool get isSheetOpen => _isSheetOpen;
+  bool get isLoadingAudio => _isLoadingAudio;
 
   // Stream getters for UI to listen to
   Stream<Duration> get positionStream => _audioPlayer.positionStream;
@@ -42,19 +50,41 @@ class MusicController extends ChangeNotifier {
 
   // Play a specific song by index
   Future<void> playSong(int index) async {
-    try {
-      _currentIndex = index;
-      _isPlayerVisible = true;
+    debugPrint('playSong() called index=$index');
+    _currentIndex = index;
 
-      // Set audio source
+    // Make the player visible immediately and notify UI so the sheet shows up
+    _isPlayerVisible = true;
+    debugPrint('set isPlayerVisible=true');
+    notifyListeners();
+
+    _isLoadingAudio = true;
+    notifyListeners();
+
+    try {
+      debugPrint(
+        'Setting audio source for index=$index url=${_songs[index].audioUrl}',
+      );
+      // Set audio source (may take time)
       await _audioPlayer.setUrl(_songs[index].audioUrl);
 
+      debugPrint('Audio source set, starting playback for index=$index');
       // Start playing
       await _audioPlayer.play();
 
+      // Loading finished
+      _isLoadingAudio = false;
+      debugPrint('Playback started for index=$index');
+      notifyListeners();
+
+      // Notify again in case UI needs to update (e.g. duration/position)
       notifyListeners();
     } catch (e) {
       debugPrint('Error playing song: $e');
+      // Hide player if loading/playing failed
+      _isLoadingAudio = false;
+      _isPlayerVisible = false;
+      notifyListeners();
     }
   }
 
@@ -93,7 +123,19 @@ class MusicController extends ChangeNotifier {
     await _audioPlayer.seek(position);
   }
 
-  // Show player bottom sheet
+  // Show player bottom sheet (UI-level flag)
+  void markSheetOpen() {
+    _isSheetOpen = true;
+    notifyListeners();
+  }
+
+  // Hide player bottom sheet (UI-level flag)
+  void markSheetClosed() {
+    _isSheetOpen = false;
+    notifyListeners();
+  }
+
+  // Show player bottom sheet (legacy)
   void showPlayer() {
     _isPlayerVisible = true;
     notifyListeners();
