@@ -7,12 +7,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hbd_salma/core/theme/colors.dart';
-import 'package:hbd_salma/features/day_events/day_events_screen.dart';
+import 'package:hbd_salma/features/day_events/facts_screen.dart';
 import 'package:hbd_salma/features/games/games_screen.dart';
 import 'package:hbd_salma/features/music/music_screen.dart';
 import 'package:hbd_salma/features/music/mini_player.dart';
 
 import '../../core/widgets/bottom_navigation.dart';
+import 'birthday_dialog.dart';
 
 class CountdownScreen extends StatefulWidget {
   final int initialIndex;
@@ -29,7 +30,7 @@ class _CountdownScreenState extends State<CountdownScreen> {
   static final List<Widget> _pages = <Widget>[
     // Countdown content (inline simple content — replace with your real countdown widget if you have one)
     CountdownContent(),
-    DayEventsScreen(),
+    BirthdayFactsScreen(),
     GamesScreen(),
     MusicScreen(),
   ];
@@ -138,33 +139,9 @@ class _CountdownContentState extends State<CountdownContent> {
   void showEndMessage() {
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            textAlign: TextAlign.center,
-            "Happy Birthday SALMA 🎉",
-            style: TextStyle(
-              color: MyColors.textPrimary,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          content: Text(
-            "Years have passed, but the celebration never ends! Wishing you a day filled with love, joy, and unforgettable moments.",
-            style: TextStyle(color: MyColors.textSecondary),
-          ),
-          backgroundColor: MyColors.backgroundLight,
-          actions: <Widget>[
-            TextButton(
-              child: Text(
-                "❤",
-                style: TextStyle(color: MyColors.textPrimary, fontSize: 24.sp),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
+        return const BirthdayDialog();
       },
     );
   }

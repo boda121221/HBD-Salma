@@ -111,7 +111,9 @@ class _SplashScreenState extends State<SplashScreen>
                   animatedTexts: [
                     // ineed salma to be under happy birthday in the center
                     TyperAnimatedText(
-                      'Happy Birthday Salma',
+                      'Happy Birthday\nSalma',
+                      textAlign: TextAlign.center,
+                      textStyle: TextStyle(height: 1.4),
                       speed: const Duration(milliseconds: 145),
                     ),
                     TyperAnimatedText(

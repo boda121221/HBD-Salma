@@ -39,9 +39,9 @@ dependencies:
   flutter_screenutil: ^5.9.3
   just_audio: ^0.9.36
   provider: ^6.1.1
+  flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.13.1  # Check for latest version
   flutter_test:
     sdk: flutter
 
@@ -54,12 +54,12 @@ dev_dependencies:
 # This is the configuration for the package.
 # It should be at the root level (no indentation).
 # The key should match the package name `flutter_launcher_icons`.
+
+#########################################
 flutter_launcher_icons:
   android: true
-  image_path: "assets/images/launcher.jpg"
-  android_background_color: "#FFFED6D0"
-
-
+  image_path: "assets/images/launcher.png"
+#################################################
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -76,6 +76,7 @@ flutter:
   assets:
     - assets/animations/hearts_feedback.json
     - assets/animations/Hearts_Falling_Animation.json
+    - assets/sounds/birthday.mp3
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
