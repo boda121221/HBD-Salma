@@ -63,7 +63,7 @@ class BalloonModel {
       x: random.nextDouble() * (screenWidth - 80),
       y: screenHeight + 20,
       speed:
-          240 +
+          370 +
           random.nextDouble() * 80, // 140-220 pixels per second (increased)
       balloonColor:
           BalloonColor.values[random.nextInt(BalloonColor.values.length)],

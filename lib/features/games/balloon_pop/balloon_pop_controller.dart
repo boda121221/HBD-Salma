@@ -56,7 +56,7 @@ class BalloonPopController extends ChangeNotifier {
     });
 
     // Spawn balloons
-    _spawnTimer = Timer.periodic(const Duration(milliseconds: 250), (timer) {
+    _spawnTimer = Timer.periodic(const Duration(milliseconds: 160), (timer) {
       if (_isGameActive && _screenWidth > 0) {
         _spawnBalloon();
       }
