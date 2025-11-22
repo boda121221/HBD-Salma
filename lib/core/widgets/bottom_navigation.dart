@@ -88,12 +88,12 @@ class BottomNavigationWidget extends StatelessWidget {
             GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () => onTap(1),
-              child: _navIcon(Icons.calendar_today, currentIndex == 1),
+              child: _navIcon(Icons.videogame_asset, currentIndex == 1),
             ),
             GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () => onTap(2),
-              child: _navIcon(Icons.videogame_asset, currentIndex == 2),
+              child: _navIcon(Icons.calendar_today, currentIndex == 2),
             ),
             GestureDetector(
               behavior: HitTestBehavior.opaque,

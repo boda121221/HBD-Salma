@@ -30,8 +30,8 @@ class _CountdownScreenState extends State<CountdownScreen> {
   static final List<Widget> _pages = <Widget>[
     // Countdown content (inline simple content — replace with your real countdown widget if you have one)
     CountdownContent(),
-    BirthdayFactsScreen(),
     GamesScreen(),
+    BirthdayFactsScreen(),
     MusicScreen(),
   ];
 
@@ -165,7 +165,7 @@ class _CountdownContentState extends State<CountdownContent> {
         SizedBox(height: 10.h),
         // New text under the seconds counter using Lymbo font and dynamic year calculation
         Text(
-          'Before ${getYearsSinceBirth()} Years\nThe World was Darker',
+          'Before ${getYearsSinceBirth()} Years\nThe World Was Darker',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontFamily: 'Lymbo',

@@ -208,7 +208,7 @@ class _BirthdayDialogState extends State<BirthdayDialog>
 
                     // Subtitle
                     Text(
-                      'Years have passed, but the celebration never ends!',
+                      '${getYearsSinceBirth()} Years have passed, and more are to come',
                       style: TextStyle(
                         fontSize: 16.sp,
                         color: const Color.fromRGBO(255, 255, 255, 0.9),
@@ -227,7 +227,7 @@ class _BirthdayDialogState extends State<BirthdayDialog>
                         borderRadius: BorderRadius.circular(20.r),
                       ),
                       child: Text(
-                        'Wishing you a day filled with love, joy, and unforgettable moments.',
+                        'Wishing you a day filled with love, joy, and unforgettable moments Cutie 🥰',
                         style: TextStyle(
                           fontSize: 14.sp,
                           color: AppColors.myWhite,
@@ -348,4 +348,9 @@ class ExplosionParticle {
     required this.duration,
     required this.startDelay,
   });
+}
+
+int getYearsSinceBirth() {
+  final now = DateTime.now();
+  return now.year - 2009;
 }
