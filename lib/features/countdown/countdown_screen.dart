@@ -101,11 +101,11 @@ class _CountdownContentState extends State<CountdownContent> {
     super.initState();
     // Set target date to November 25th
     final now = DateTime.now();
-    targetDate = DateTime(now.year, 11, 25, 23, 59, 59);
+    targetDate = DateTime(now.year, 11, 24, 23, 59, 59);
 
     // If the date has passed this year, set it to next year
     if (now.isAfter(targetDate)) {
-      targetDate = DateTime(now.year + 1, 11, 25, 23, 59, 59);
+      targetDate = DateTime(now.year + 1, 11, 24, 23, 59, 59);
     }
 
     // Calculate initial duration
