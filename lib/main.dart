@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      // designSize: const Size(1080, 2340),
       builder: (context, child) {
         return ChangeNotifierProvider(
           create: (_) => MusicController(),
@@ -26,14 +25,26 @@ class MyApp extends StatelessWidget {
             initialRoute: AppRoutes.splash,
             routes: {
               AppRoutes.splash: (context) => const SplashScreen(),
+
+              // Countdown shell – initialIndex 0 is the Countdown tab
               AppRoutes.countdown: (context) =>
                   const CountdownScreen(initialIndex: 0),
-              AppRoutes.memories: (context) =>
+
+              // Our Story tab (index 1) – replaces old /memories route
+              AppRoutes.ourStory: (context) =>
                   const CountdownScreen(initialIndex: 1),
+
+              // Games tab (index 2)
               AppRoutes.games: (context) =>
                   const CountdownScreen(initialIndex: 2),
-              AppRoutes.music: (context) =>
+
+              // Voice Notes tab (index 3) – new feature
+              AppRoutes.voiceNotes: (context) =>
                   const CountdownScreen(initialIndex: 3),
+
+              // Music tab (index 4)
+              AppRoutes.music: (context) =>
+                  const CountdownScreen(initialIndex: 4),
             },
             theme: ThemeData(
               fontFamily: 'Poppins',
@@ -50,4 +61,4 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// AppRoutes now live in lib/core/app_routes.dart
+// AppRoutes live in lib/core/app_routes.dart

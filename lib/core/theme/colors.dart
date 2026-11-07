@@ -10,6 +10,14 @@ class MyColors {
   static const Color myWhite = Color(0xFFFFFFFF);
   static const Color myBlack = Color(0xFF6C6C6C);
 
+  // Pastel blue used for 'my dreams' cards and complementary accents
+  static const Color myPastelBlue = Color(0xFFB8D4F5);
+  // Deeper blue text/border for pastel blue cards
+  static const Color myPastelBlueBold = Color(0xFF7BADD9);
+
+  // Soft background tint for Our Story screen
+  static const Color storyBackground = Color(0xFFFFF5F4);
+
   // // New palette to match the splash spirit
   // static const Color scaffoldGradientStart = primaryColor; // warm pink start
   // static const Color scaffoldGradientEnd = Color.fromRGBO(

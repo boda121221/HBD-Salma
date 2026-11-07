@@ -17,13 +17,17 @@ class MusicScreen extends StatelessWidget {
           children: [
             // Header
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.h),
-              child: Text(
-                'Songs we love',
-                style: TextStyle(
-                  fontSize: 28.sp,
-                  fontWeight: FontWeight.bold,
-                  color: MyColors.myBlack,
+              padding: EdgeInsets.fromLTRB(24.w, 20.h, 24.w, 4.h),
+              child: Center(
+                child: Text(
+                  'Songs we love',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Lymbo',
+                    fontSize: 34.sp,
+                    fontWeight: FontWeight.bold,
+                    color: MyColors.primaryColorBold,
+                  ),
                 ),
               ),
             ),
@@ -33,7 +37,7 @@ class MusicScreen extends StatelessWidget {
               child: Consumer<MusicController>(
                 builder: (context, controller, child) {
                   return ListView.builder(
-                    padding: EdgeInsets.only(bottom: 16.h),
+                    padding: EdgeInsets.fromLTRB(0, 8.h, 0, 16.h),
                     itemCount: controller.songs.length,
                     itemBuilder: (context, index) {
                       return MusicCard(

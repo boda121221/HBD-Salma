@@ -7,15 +7,16 @@ import 'music_controller.dart';
 import 'player_bottom_sheet.dart';
 
 class MiniPlayer extends StatelessWidget {
-  const MiniPlayer({Key? key}) : super(key: key);
+  const MiniPlayer({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Consumer<MusicController>(
       builder: (context, controller, child) {
         // Only show when player is visible and sheet is not open
-        if (!controller.isPlayerVisible || controller.isSheetOpen)
+        if (!controller.isPlayerVisible || controller.isSheetOpen) {
           return const SizedBox.shrink();
+        }
 
         final song = controller.currentSong;
 
@@ -141,6 +142,7 @@ class MiniPlayer extends StatelessWidget {
                   builder: (context, snapshot) {
                     final isPlaying = snapshot.data ?? false;
                     return IconButton(
+                      visualDensity: VisualDensity.compact,
                       onPressed: () {
                         controller.togglePlayPause();
                       },
@@ -153,6 +155,19 @@ class MiniPlayer extends StatelessWidget {
                       ),
                     );
                   },
+                ),
+
+                // Close button (X) to remove mini player and close music
+                IconButton(
+                  visualDensity: VisualDensity.compact,
+                  onPressed: () {
+                    controller.closePlayer();
+                  },
+                  icon: Icon(
+                    Icons.close_rounded,
+                    color: MyColors.myBlack.withOpacity(0.6),
+                    size: 22.sp,
+                  ),
                 ),
               ],
             ),

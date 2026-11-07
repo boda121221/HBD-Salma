@@ -72,8 +72,8 @@ class _PlayerBottomSheetState extends State<PlayerBottomSheet> {
                       ),
                     ),
 
-                    // If audio is loading show a compact loading row
-                    if (controller.isLoadingAudio)
+                    // If audio is loading and not yet playing, show a compact loading row
+                    if (controller.isLoadingAudio && !controller.isPlaying)
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: 16.w,

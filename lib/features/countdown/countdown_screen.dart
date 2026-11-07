@@ -1,16 +1,25 @@
-// Update countdown screen to include a stylish BottomNavigationBar
-// and route-based navigation using AppRoutes. Backgrounds use MyColors.primaryColor
-// and selected icons use MyColors.myBlue.
+// ---------------------------------------------------------------------------
+// countdown_screen.dart
+// Main app shell that hosts all bottom-navigation pages.
+//
+// PAGE ORDER (must match BottomNavigationWidget indices):
+//  0 → CountdownContent  – Birthday countdown
+//  1 → OurStoryScreen    – Our Story (replaces BirthdayFactsScreen)
+//  2 → GamesScreen       – Mini-games hub
+//  3 → VoiceNotesScreen  – Six voice-note categories (NEW)
+//  4 → MusicScreen       – Curated song playlist
+// ---------------------------------------------------------------------------
 
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hbd_salma/core/theme/colors.dart';
-import 'package:hbd_salma/features/day_events/facts_screen.dart';
 import 'package:hbd_salma/features/games/games_screen.dart';
 import 'package:hbd_salma/features/music/music_screen.dart';
 import 'package:hbd_salma/features/music/mini_player.dart';
+import 'package:hbd_salma/features/our_story/our_story_screen.dart';
+import 'package:hbd_salma/features/voice_notes/voice_notes_screen.dart';
 
 import '../../core/widgets/bottom_navigation.dart';
 import 'birthday_dialog.dart';
@@ -24,15 +33,17 @@ class CountdownScreen extends StatefulWidget {
 }
 
 class _CountdownScreenState extends State<CountdownScreen> {
-  // Centralized shell: keep a local index and swap the body only
+  // Centralised shell: swap body only; keep nav and MiniPlayer persistent.
   late int _selectedIndex;
 
+  // Pages must be in the same order as the bottom navigation tab indices.
+  // Use const constructors where possible to avoid unnecessary rebuilds.
   static final List<Widget> _pages = <Widget>[
-    // Countdown content (inline simple content — replace with your real countdown widget if you have one)
-    CountdownContent(),
-    GamesScreen(),
-    BirthdayFactsScreen(),
-    MusicScreen(),
+    CountdownContent(),   // index 0 – Countdown
+    OurStoryScreen(),     // index 1 – Our Story
+    GamesScreen(),        // index 2 – Games
+    VoiceNotesScreen(),   // index 3 – Voice Notes
+    MusicScreen(),        // index 4 – Music
   ];
 
   @override
@@ -40,8 +51,8 @@ class _CountdownScreenState extends State<CountdownScreen> {
     super.initState();
     _selectedIndex =
         (widget.initialIndex >= 0 && widget.initialIndex < _pages.length)
-        ? widget.initialIndex
-        : 0;
+            ? widget.initialIndex
+            : 0;
   }
 
   void _onItemTapped(int index) {
@@ -66,10 +77,10 @@ class _CountdownScreenState extends State<CountdownScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Mini player sits above the bottom navigation when visible
+            // Mini player sits above the bottom navigation when music is active
             const MiniPlayer(),
 
-            // The actual bottom navigation bar
+            // The actual bottom navigation bar (now 5 destinations)
             BottomNavigationWidget(
               currentIndex: _selectedIndex,
               onTap: _onItemTapped,
@@ -81,6 +92,8 @@ class _CountdownScreenState extends State<CountdownScreen> {
   }
 }
 
+// ── Countdown content widget ──────────────────────────────────────────────
+// (Unchanged from original except formatting)
 class CountdownContent extends StatefulWidget {
   const CountdownContent({super.key});
 
@@ -89,7 +102,7 @@ class CountdownContent extends StatefulWidget {
 }
 
 class _CountdownContentState extends State<CountdownContent> {
-  // Fixed target date: November 25th of current year
+  // Fixed target date: November 25th of the current (or next) year
   late DateTime targetDate;
   final ValueNotifier<Duration> durationNotifier = ValueNotifier<Duration>(
     Duration.zero,
@@ -99,16 +112,14 @@ class _CountdownContentState extends State<CountdownContent> {
   @override
   void initState() {
     super.initState();
-    // Set target date to November 25th
     final now = DateTime.now();
     targetDate = DateTime(now.year, 11, 24, 23, 59, 59);
 
-    // If the date has passed this year, set it to next year
+    // If the date has already passed this year, aim for next year
     if (now.isAfter(targetDate)) {
       targetDate = DateTime(now.year + 1, 11, 24, 23, 59, 59);
     }
 
-    // Calculate initial duration
     durationNotifier.value = targetDate.difference(now);
     startTimer();
   }
@@ -155,15 +166,14 @@ class _CountdownContentState extends State<CountdownContent> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        buildTimeRow(days.toString().padLeft(2, '0'), "Days"),
+        buildTimeRow(days.toString().padLeft(2, '0'), 'Days'),
         SizedBox(height: 4.h),
-        buildTimeRow(hours.toString().padLeft(2, '0'), "Hours"),
+        buildTimeRow(hours.toString().padLeft(2, '0'), 'Hours'),
         SizedBox(height: 4.h),
-        buildTimeRow(minutes.toString().padLeft(2, '0'), "Minutes"),
+        buildTimeRow(minutes.toString().padLeft(2, '0'), 'Minutes'),
         SizedBox(height: 4.h),
-        buildTimeRow(seconds.toString().padLeft(2, '0'), "Seconds"),
+        buildTimeRow(seconds.toString().padLeft(2, '0'), 'Seconds'),
         SizedBox(height: 10.h),
-        // New text under the seconds counter using Lymbo font and dynamic year calculation
         Text(
           'Before ${getYearsSinceBirth()} Years\nThe World Was Darker',
           textAlign: TextAlign.center,

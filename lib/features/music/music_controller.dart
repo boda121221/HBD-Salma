@@ -40,8 +40,16 @@ class MusicController extends ChangeNotifier {
   bool get isPlaying => _audioPlayer.playing;
 
   MusicController() {
-    // Listen to player completion to auto-play next song
+    // Listen to player state: clear loading indicator when ready/playing, and auto-play next song
     _audioPlayer.playerStateStream.listen((state) {
+      if (state.playing ||
+          state.processingState == ProcessingState.ready ||
+          state.processingState == ProcessingState.completed) {
+        if (_isLoadingAudio) {
+          _isLoadingAudio = false;
+          notifyListeners();
+        }
+      }
       if (state.processingState == ProcessingState.completed) {
         next();
       }
@@ -55,9 +63,6 @@ class MusicController extends ChangeNotifier {
 
     // Make the player visible immediately and notify UI so the sheet shows up
     _isPlayerVisible = true;
-    debugPrint('set isPlayerVisible=true');
-    notifyListeners();
-
     _isLoadingAudio = true;
     notifyListeners();
 
@@ -68,17 +73,13 @@ class MusicController extends ChangeNotifier {
       // Set audio source (may take time)
       await _audioPlayer.setUrl(_songs[index].audioUrl);
 
-      debugPrint('Audio source set, starting playback for index=$index');
-      // Start playing
-      await _audioPlayer.play();
-
-      // Loading finished
+      // Loading finished once audio source is set and ready
       _isLoadingAudio = false;
-      debugPrint('Playback started for index=$index');
       notifyListeners();
 
-      // Notify again in case UI needs to update (e.g. duration/position)
-      notifyListeners();
+      debugPrint('Audio source set, starting playback for index=$index');
+      // Start playing (do NOT await play() as just_audio's play() blocks until playback stops)
+      _audioPlayer.play();
     } catch (e) {
       debugPrint('Error playing song: $e');
       // Hide player if loading/playing failed
@@ -93,7 +94,7 @@ class MusicController extends ChangeNotifier {
     if (_audioPlayer.playing) {
       await _audioPlayer.pause();
     } else {
-      await _audioPlayer.play();
+      _audioPlayer.play();
     }
     notifyListeners();
   }
@@ -143,6 +144,13 @@ class MusicController extends ChangeNotifier {
 
   // Hide player bottom sheet
   void hidePlayer() {
+    _isPlayerVisible = false;
+    notifyListeners();
+  }
+
+  // Stop playback and close/hide the player
+  Future<void> closePlayer() async {
+    await _audioPlayer.stop();
     _isPlayerVisible = false;
     notifyListeners();
   }
